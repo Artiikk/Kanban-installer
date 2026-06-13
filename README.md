@@ -11,9 +11,6 @@ fetched with GitHub auth at install time.
 # Auth once (preferred):
 gh auth login
 curl -fsSL https://raw.githubusercontent.com/Artiikk/Kanban-installer/main/install.sh | bash
-
-# …or pass a PAT with repo read access (also needs jq):
-BCC_VIBE_TOKEN=<github-pat> bash -c "$(curl -fsSL https://raw.githubusercontent.com/Artiikk/Kanban-installer/main/install.sh)"
 ```
 
 ## Windows (PowerShell)
