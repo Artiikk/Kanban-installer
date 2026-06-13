@@ -1,20 +1,20 @@
-# BccVibe CLI installer for Windows (GitHub releases, private-repo capable).
+# Vibe CLI installer for Windows (GitHub releases, private-repo capable).
 #
 # Carries no secrets — host it PUBLICLY so `irm … | iex` resolves. Release
 # archives stay in the PRIVATE repo; this script pulls them with a token via
 # the releases API (the browser `releases/latest/download` path 404s for
 # private repos).
 #
-# Auth: set $env:BCC_VIBE_TOKEN to a GitHub PAT with `repo` read access
+# Auth: set $env:VIBE_TOKEN to a GitHub PAT with `repo` read access
 #       (GITHUB_TOKEN / GH_TOKEN are also accepted).
-# Overrides: $env:BCC_VIBE_REPO, $env:BCC_VIBE_INSTALL_DIR.
+# Overrides: $env:VIBE_REPO, $env:VIBE_INSTALL_DIR.
 $ErrorActionPreference = "Stop"
 
-$Repo = if ($env:BCC_VIBE_REPO) { $env:BCC_VIBE_REPO } else { "Artiikk/BCC-Vibe-Kanban" }
-$Token = $env:BCC_VIBE_TOKEN
+$Repo = if ($env:VIBE_REPO) { $env:VIBE_REPO } else { "Artiikk/BCC-Vibe-Kanban" }
+$Token = $env:VIBE_TOKEN
 if (-not $Token) { $Token = $env:GITHUB_TOKEN }
 if (-not $Token) { $Token = $env:GH_TOKEN }
-if (-not $Token) { throw "install: set `$env:BCC_VIBE_TOKEN to a GitHub PAT with read access to $Repo" }
+if (-not $Token) { throw "install: set `$env:VIBE_TOKEN to a GitHub PAT with read access to $Repo" }
 
 $arch = if ($env:PROCESSOR_ARCHITECTURE -eq "ARM64") { "arm64" } else { "amd64" }
 $suffix = "-windows-$arch.zip"
@@ -56,7 +56,7 @@ try {
   $exe = Join-Path $work "bcc-vibe.exe"
   if (-not (Test-Path $exe)) { throw "install: archive $asset did not contain bcc-vibe.exe at its root" }
 
-  $bindir = if ($env:BCC_VIBE_INSTALL_DIR) { $env:BCC_VIBE_INSTALL_DIR } else { Join-Path $env:LOCALAPPDATA "Programs\BccVibe" }
+  $bindir = if ($env:VIBE_INSTALL_DIR) { $env:VIBE_INSTALL_DIR } else { Join-Path $env:LOCALAPPDATA "Programs\Vibe" }
   New-Item -ItemType Directory -Path $bindir -Force | Out-Null
   Move-Item -Path $exe -Destination (Join-Path $bindir "bcc-vibe.exe") -Force
   Write-Host "install: installed $bindir\bcc-vibe.exe"

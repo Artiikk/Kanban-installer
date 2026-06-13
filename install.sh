@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# BccVibe CLI installer (GitHub releases, private-repo capable).
+# Vibe CLI installer (GitHub releases, private-repo capable).
 #
 # This script carries no secrets and is meant to be hosted PUBLICLY (a public
 # installer repo, a gist, or any static host) so the `curl … | bash` one-liner
@@ -10,16 +10,16 @@
 #
 # Auth (pick one):
 #   • `gh auth login` beforehand — no token env needed (preferred), or
-#   • export BCC_VIBE_TOKEN=<github PAT with `repo` read access>
+#   • export VIBE_TOKEN=<github PAT with `repo` read access>
 #     (GITHUB_TOKEN / GH_TOKEN are also accepted)
 #
-# Overrides: BCC_VIBE_REPO (default Artiikk/BCC-Vibe-Kanban),
-#            BCC_VIBE_INSTALL_DIR (default /usr/local/bin or ~/.local/bin).
+# Overrides: VIBE_REPO (default Artiikk/BCC-Vibe-Kanban),
+#            VIBE_INSTALL_DIR (default /usr/local/bin or ~/.local/bin).
 set -euo pipefail
 
-REPO="${BCC_VIBE_REPO:-Artiikk/BCC-Vibe-Kanban}"
+REPO="${VIBE_REPO:-Artiikk/BCC-Vibe-Kanban}"
 BINARY="bcc-vibe"
-TOKEN="${BCC_VIBE_TOKEN:-${GITHUB_TOKEN:-${GH_TOKEN:-}}}"
+TOKEN="${VIBE_TOKEN:-${GITHUB_TOKEN:-${GH_TOKEN:-}}}"
 
 err() { echo "install: $*" >&2; exit 1; }
 note() { echo "install: $*" >&2; }
@@ -47,7 +47,7 @@ elif [ -n "$TOKEN" ]; then
   command -v jq >/dev/null 2>&1 || err "the token path needs 'jq' — install it (brew install jq / apt-get install jq) or run 'gh auth login' instead"
   BACKEND="api"
 else
-  err "no GitHub auth found. Either run 'gh auth login', or export BCC_VIBE_TOKEN=<github PAT>"
+  err "no GitHub auth found. Either run 'gh auth login', or export VIBE_TOKEN=<github PAT>"
 fi
 
 WORKDIR="$(mktemp -d)"
@@ -126,8 +126,8 @@ tar -xzf "$WORKDIR/$asset" -C "$WORKDIR" || err "failed to extract $asset"
 chmod +x "$WORKDIR/$BINARY"
 
 # ── Install ──────────────────────────────────────────────────────────────────
-if [ -n "${BCC_VIBE_INSTALL_DIR:-}" ]; then
-  bindir="$BCC_VIBE_INSTALL_DIR"
+if [ -n "${VIBE_INSTALL_DIR:-}" ]; then
+  bindir="$VIBE_INSTALL_DIR"
 elif [ -w /usr/local/bin ]; then
   bindir=/usr/local/bin
 else
