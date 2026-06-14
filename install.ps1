@@ -10,7 +10,7 @@
 # Overrides: $env:VIBE_REPO, $env:VIBE_INSTALL_DIR.
 $ErrorActionPreference = "Stop"
 
-$Repo = if ($env:VIBE_REPO) { $env:VIBE_REPO } else { "Artiikk/BCC-Vibe-Kanban" }
+$Repo = if ($env:VIBE_REPO) { $env:VIBE_REPO } else { "Artiikk/Kanban-installer" }
 $Token = $env:VIBE_TOKEN
 if (-not $Token) { $Token = $env:GITHUB_TOKEN }
 if (-not $Token) { $Token = $env:GH_TOKEN }

@@ -13,11 +13,11 @@
 #   • export VIBE_TOKEN=<github PAT with `repo` read access>
 #     (GITHUB_TOKEN / GH_TOKEN are also accepted)
 #
-# Overrides: VIBE_REPO (default Artiikk/BCC-Vibe-Kanban),
+# Overrides: VIBE_REPO (default Artiikk/Kanban-installer),
 #            VIBE_INSTALL_DIR (default /usr/local/bin or ~/.local/bin).
 set -euo pipefail
 
-REPO="${VIBE_REPO:-Artiikk/BCC-Vibe-Kanban}"
+REPO="${VIBE_REPO:-Artiikk/Kanban-installer}"
 BINARY="bcc-vibe"
 TOKEN="${VIBE_TOKEN:-${GITHUB_TOKEN:-${GH_TOKEN:-}}}"
 
